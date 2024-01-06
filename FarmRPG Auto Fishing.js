@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         FarmRPG Auto Fishing
 // @namespace    http://tampermonkey.net/
-// @version      2.3
+// @version      2.4
 // @description  Very fast Auto Fishing for FarmRPG. He buys worms and sells fish himself. You need to open two pages with Farm Pond and Farmer's Market.
 // @author       methamphetaminelab
 // @match        https://farmrpg.com/*
@@ -43,6 +43,7 @@
 
             if (!isNaN(wormsRemaining) && wormsRemaining > 0) {
                 console.log('Worms remaining:', wormsRemaining);
+                clickFishElements();
             } else {
                 console.log('No more worms. Buying 200 worms.');
                 buyWorms();
@@ -57,19 +58,25 @@
     function clickFishElements() {
         const fishElements = document.querySelectorAll('[class*="fish f"]');
 
-        fishElements.forEach(element => {
-            element.click();
-        });
+        if (fishElements.length > 0) {
+            fishElements.forEach(element => {
+                element.click();
+            });
 
-        const specificDiv = document.querySelector('.fishcaught.finalcatch2c[data-speed="2"][data-id="2"]');
+            const specificDiv = document.querySelector('.fishcaught.finalcatch2c[data-speed="2"][data-id="2"]');
 
-        if (specificDiv) {
-            specificDiv.click();
+            if (specificDiv) {
+                specificDiv.click();
+            }
+
+            setTimeout(() => {
+                checkWorms();
+            }, 1000);
+        } else {
+            console.log('No fish found. Stopping script.');
+            clearIntervalAll();
+            startRepeatActions();
         }
-
-        setTimeout(() => {
-            checkWorms();
-        }, 1000);
     }
 
     function buyWorms() {
@@ -122,6 +129,7 @@
             }, 500);
         } else {
             console.log('Sell Unlocked not found.');
+            checkWorms(); // Try to check worms and start fishing again
         }
     }
 
