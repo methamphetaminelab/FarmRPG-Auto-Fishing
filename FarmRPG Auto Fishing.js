@@ -19,6 +19,7 @@
 
     const wormsCheckInterval = 10;
     const pageReloadInterval = 30 * 1000;
+    intervalIdReloadPage = setInterval(reloadPage, pageReloadInterval);
     let wormsRemaining;
 
     function isElementPresent(selector) {
