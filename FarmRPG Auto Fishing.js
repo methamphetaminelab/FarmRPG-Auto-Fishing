@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         FarmRPG Auto Fishing
 // @namespace    http://tampermonkey.net/
-// @version      2.4
+// @version      2.5
 // @description  Very fast Auto Fishing for FarmRPG. He buys worms and sells fish himself. You need to open two pages with Farm Pond and Farmer's Market.
 // @author       methamphetaminelab
 // @match        https://farmrpg.com/*
@@ -130,7 +130,7 @@
             }, 500);
         } else {
             console.log('Sell Unlocked not found.');
-            checkWorms(); // Try to check worms and start fishing again
+            checkWorms();
         }
     }
 
